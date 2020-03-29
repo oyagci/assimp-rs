@@ -12,14 +12,13 @@ impl<'a> Material<'a> {
         unsafe { aiGetMaterialTextureCount(self.0, kind) }
     }
 
-    pub fn get_texture(&self, kind: AiTextureType, index: u32, name: &str) {
-        let mut aistr: AiString = From::from(name);
+    pub fn get_texture(&self, kind: AiTextureType, index: u32, path: &mut AiString) {
         unsafe {
             aiGetMaterialTexture(
                 self.0,
                 kind,
                 index,
-                &mut aistr,
+                path,
                 std::ptr::null_mut(),
                 std::ptr::null_mut(),
                 std::ptr::null_mut(),
